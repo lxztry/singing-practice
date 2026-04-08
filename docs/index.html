@@ -1,0 +1,472 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>唱歌技巧修炼 - 让歌声越来越动听</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'PingFang SC', sans-serif;
+            background: linear-gradient(135deg, #1a1a2e 0%, #16213e 50%, #4a0e4e 100%);
+            min-height: 100vh;
+            color: #fff;
+        }
+        
+        .hero {
+            text-align: center;
+            padding: 80px 20px;
+            background: linear-gradient(180deg, rgba(236,72,153,0.15) 0%, transparent 100%);
+        }
+        .hero h1 {
+            font-size: 3.5rem;
+            margin-bottom: 15px;
+            background: linear-gradient(90deg, #ec4899, #f472b6, #c084fc);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+        .hero .subtitle { font-size: 1.2rem; color: #e0e0e0; }
+        
+        .container { max-width: 1200px; margin: 0 auto; padding: 0 20px; }
+        
+        .section-title {
+            text-align: center;
+            font-size: 2.2rem;
+            margin: 60px 0 35px;
+        }
+        
+        .vocal-tips {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+            gap: 25px;
+            margin: 35px 0;
+        }
+        .tip-card {
+            background: rgba(255,255,255,0.05);
+            border-radius: 20px;
+            padding: 30px;
+            transition: all 0.3s;
+        }
+        .tip-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 35px rgba(236,72,153,0.2);
+        }
+        .tip-card .icon { font-size: 3rem; margin-bottom: 15px; }
+        .tip-card h3 { margin-bottom: 12px; color: #f472b6; }
+        .tip-card p { color: #ccc; line-height: 1.7; }
+        .tip-card ul {
+            margin-top: 15px;
+            padding-left: 20px;
+            color: #aaa;
+        }
+        .tip-card ul li { margin: 8px 0; }
+        
+        .practice-section {
+            background: rgba(255,255,255,0.05);
+            border-radius: 24px;
+            padding: 40px;
+            margin: 50px 0;
+        }
+        
+        .pitch-tester {
+            text-align: center;
+            padding: 40px;
+            background: rgba(192,132,252,0.1);
+            border-radius: 20px;
+            margin: 30px 0;
+        }
+        .pitch-tester h3 { margin-bottom: 20px; }
+        .pitch-visual {
+            width: 100%;
+            height: 150px;
+            background: rgba(0,0,0,0.3);
+            border-radius: 12px;
+            margin: 20px 0;
+            position: relative;
+            overflow: hidden;
+        }
+        .pitch-visual canvas {
+            width: 100%;
+            height: 100%;
+        }
+        .record-btn {
+            padding: 20px 50px;
+            background: linear-gradient(135deg, #c084fc, #ec4899);
+            border: none;
+            border-radius: 30px;
+            color: white;
+            font-size: 1.2rem;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+        .record-btn:hover { transform: scale(1.05); }
+        .record-btn.recording {
+            animation: pulse 1s infinite;
+        }
+        @keyframes pulse {
+            0%, 100% { box-shadow: 0 0 0 0 rgba(236,72,153,0.7); }
+            50% { box-shadow: 0 0 0 20px rgba(236,72,153,0); }
+        }
+        
+        .songs {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 20px;
+            margin: 30px 0;
+        }
+        .song-card {
+            background: rgba(255,255,255,0.05);
+            padding: 25px;
+            border-radius: 16px;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+        .song-card:hover {
+            background: rgba(255,255,255,0.1);
+            transform: scale(1.02);
+        }
+        .song-card .level {
+            display: inline-block;
+            padding: 5px 12px;
+            border-radius: 15px;
+            font-size: 0.8rem;
+            margin-bottom: 10px;
+        }
+        .level.easy { background: rgba(34,197,94,0.2); color: #22c55e; }
+        .level.medium { background: rgba(245,158,11,0.2); color: #f59e0b; }
+        .level.hard { background: rgba(239,68,68,0.2); color: #ef4444; }
+        
+        .scales {
+            background: rgba(255,255,255,0.03);
+            border-radius: 24px;
+            padding: 35px;
+            margin: 50px 0;
+        }
+        .scales-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 15px;
+            margin-top: 20px;
+        }
+        .scale-btn {
+            background: rgba(255,255,255,0.08);
+            padding: 20px;
+            border-radius: 12px;
+            text-align: center;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+        .scale-btn:hover {
+            background: rgba(192,132,252,0.3);
+            transform: scale(1.05);
+        }
+        .scale-btn h4 { margin-bottom: 8px; }
+        .scale-btn p { font-size: 0.85rem; color: #aaa; }
+        
+        .breathing {
+            text-align: center;
+            padding: 40px;
+            background: linear-gradient(135deg, rgba(34,197,94,0.1), rgba(96,165,250,0.1));
+            border-radius: 24px;
+            margin: 50px 0;
+        }
+        .breathing-circle {
+            width: 180px;
+            height: 180px;
+            border-radius: 50%;
+            background: radial-gradient(circle, rgba(96,165,250,0.3), transparent);
+            margin: 30px auto;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            animation: breathe 6s ease-in-out infinite;
+        }
+        .breathing-circle .text { font-size: 1.2rem; }
+        @keyframes breathe {
+            0%, 100% { transform: scale(0.85); }
+            50% { transform: scale(1.15); }
+        }
+        
+        .progress-tracker {
+            background: rgba(255,255,255,0.05);
+            border-radius: 24px;
+            padding: 35px;
+            margin: 50px 0;
+        }
+        .progress-item {
+            display: flex;
+            align-items: center;
+            gap: 20px;
+            padding: 15px 0;
+            border-bottom: 1px solid rgba(255,255,255,0.05);
+        }
+        .progress-item:last-child { border-bottom: none; }
+        .progress-item .day { font-size: 1.5rem; min-width: 80px; }
+        .progress-item .task { flex: 1; }
+        .progress-item .status {
+            padding: 8px 16px;
+            border-radius: 20px;
+            font-size: 0.85rem;
+        }
+        .status.done { background: rgba(34,197,94,0.2); color: #22c55e; }
+        .status.pending { background: rgba(245,158,11,0.2); color: #f59e0b; }
+        
+        footer {
+            text-align: center;
+            padding: 40px;
+            color: #666;
+            border-top: 1px solid rgba(255,255,255,0.1);
+            margin-top: 60px;
+        }
+        footer a { color: #ec4899; text-decoration: none; }
+    </style>
+</head>
+<body>
+    <section class="hero">
+        <h1>🎤 唱歌技巧修炼</h1>
+        <p class="subtitle">让歌声越来越动听，成为更好的歌手</p>
+    </section>
+    
+    <div class="container">
+        <h2 class="section-title">唱歌技巧</h2>
+        <div class="vocal-tips">
+            <div class="tip-card">
+                <div class="icon">🫁</div>
+                <h3>腹式呼吸</h3>
+                <p>正确的呼吸是唱歌的基础。腹式呼吸能让你的气息更稳，声音更有力量。</p>
+                <ul>
+                    <li>吸气时腹部向外扩张</li>
+                    <li>呼气时腹部慢慢收回</li>
+                    <li>每天练习5-10分钟</li>
+                </ul>
+            </div>
+            <div class="tip-card">
+                <div class="icon">🎯</div>
+                <h3>音准练习</h3>
+                <p>准确的音准是演唱的灵魂。通过练习可以大幅提升音准能力。</p>
+                <ul>
+                    <li>跟着钢琴或乐器练音阶</li>
+                    <li>多听原唱找准音高</li>
+                    <li>使用APP辅助练习</li>
+                </ul>
+            </div>
+            <div class="tip-card">
+                <div class="icon">💫</div>
+                <h3>高音技巧</h3>
+                <p>掌握正确的高音方法，避免声带损伤。</p>
+                <ul>
+                    <li>不要用喉咙硬撑</li>
+                    <li>利用气息支撑</li>
+                    <li>头腔共鸣让高音更轻松</li>
+                </ul>
+            </div>
+            <div class="tip-card">
+                <div class="icon">🎵</div>
+                <h3>节奏感</h3>
+                <p>稳定的节奏是歌曲的骨架。</p>
+                <ul>
+                    <li>跟着节拍器练习</li>
+                    <li>多听音乐打拍子</li>
+                    <li>注意歌词中的连音和休止</li>
+                </ul>
+            </div>
+            <div class="tip-card">
+                <div class="icon">😊</div>
+                <h3>情感表达</h3>
+                <p>唱歌不仅是技术，更是情感的表达。</p>
+                <ul>
+                    <li>理解歌词的含义</li>
+                    <li>投入真实的情感</li>
+                    <li>用声音描绘画面</li>
+                </ul>
+            </div>
+            <div class="tip-card">
+                <div class="icon">🗣️</div>
+                <h3>咬字清晰</h3>
+                <p>清晰的咬字让歌曲更易听懂。</p>
+                <ul>
+                    <li>练习绕口令</li>
+                    <li>注意每个字的起承转合</li>
+                    <li>避免含糊不清</li>
+                </ul>
+            </div>
+        </div>
+        
+        <h2 class="section-title">呼吸练习</h2>
+        <div class="breathing">
+            <h3>腹式呼吸训练</h3>
+            <p style="color:#aaa;margin:15px 0;">跟随圆形节奏练习呼吸，每天3组</p>
+            <div class="breathing-circle">
+                <span class="text">吸气...</span>
+            </div>
+            <p style="color:#888;font-size:0.9rem;">吸气4秒 → 屏息4秒 → 呼气6秒</p>
+        </div>
+        
+        <h2 class="section-title">音阶练习</h2>
+        <div class="scales">
+            <p style="text-align:center;color:#aaa;margin-bottom:20px;">点击开始练习，尝试跟唱</p>
+            <div class="scales-grid">
+                <div class="scale-btn" onclick="playScale('do')">
+                    <h4>C Do</h4>
+                    <p>基础音阶</p>
+                </div>
+                <div class="scale-btn" onclick="playScale('re')">
+                    <h4>D Re</h4>
+                    <p>上行车学习</p>
+                </div>
+                <div class="scale-btn" onclick="playScale('mi')">
+                    <h4>E Mi</h4>
+                    <p>稳定音准</p>
+                </div>
+                <div class="scale-btn" onclick="playScale('fa')">
+                    <h4>F Fa</h4>
+                    <p>半音练习</p>
+                </div>
+                <div class="scale-btn" onclick="playScale('sol')">
+                    <h4>G Sol</h4>
+                    <p>高音区</p>
+                </div>
+            </div>
+        </div>
+        
+        <h2 class="section-title">推荐练习曲目</h2>
+        <div class="songs">
+            <div class="song-card">
+                <span class="level easy">初级</span>
+                <h4>小星星</h4>
+                <p style="color:#888;font-size:0.9rem;">经典儿歌，音域窄，适合入门</p>
+            </div>
+            <div class="song-card">
+                <span class="level easy">初级</span>
+                <h4>两只老虎</h4>
+                <p style="color:#888;font-size:0.9rem;">节奏简单，容易上手</p>
+            </div>
+            <div class="song-card">
+                <span class="level medium">中级</span>
+                <h4>虫儿飞</h4>
+                <p style="color:#888;font-size:0.9rem;">情感表达练习</p>
+            </div>
+            <div class="song-card">
+                <span class="level medium">中级</span>
+                <h4>学猫叫</h4>
+                <p style="color:#888;font-size:0.9rem;">活泼可爱，音域适中</p>
+            </div>
+            <div class="song-card">
+                <span class="level hard">高级</span>
+                <h4>光年之外</h4>
+                <p style="color:#888;font-size:0.9rem;">挑战高音和气息</p>
+            </div>
+            <div class="song-card">
+                <span class="level hard">高级</span>
+                <h4>泡沫</h4>
+                <p style="color:#888;font-size:0.9rem;">气息控制练习</p>
+            </div>
+        </div>
+        
+        <h2 class="section-title">练习计划</h2>
+        <div class="progress-tracker">
+            <div class="progress-item">
+                <span class="day">Day 1-7</span>
+                <span class="task">腹式呼吸基础，每天10分钟</span>
+                <span class="status done">完成</span>
+            </div>
+            <div class="progress-item">
+                <span class="day">Day 8-14</span>
+                <span class="task">音阶上下行练习</span>
+                <span class="status done">完成</span>
+            </div>
+            <div class="progress-item">
+                <span class="day">Day 15-21</span>
+                <span class="task">高音技巧突破</span>
+                <span class="status pending">进行中</span>
+            </div>
+            <div class="progress-item">
+                <span class="day">Day 22-30</span>
+                <span class="task">完整歌曲练习</span>
+                <span class="status pending">待开始</span>
+            </div>
+        </div>
+        
+        <h2 class="section-title">跟唱练习</h2>
+        <div class="practice-section">
+            <div class="pitch-tester">
+                <h3>🎤 跟唱练习</h3>
+                <p style="color:#aaa;margin-bottom:20px;">跟着音乐一起唱，检测音准</p>
+                <div class="pitch-visual">
+                    <canvas id="pitchCanvas"></canvas>
+                </div>
+                <button class="record-btn" id="recordBtn" onclick="toggleRecord()">
+                    🎤 开始跟唱
+                </button>
+                <p style="margin-top:20px;color:#888;font-size:0.9rem;">
+                    跟着屏幕上显示的旋律线唱，观察自己的音准
+                </p>
+            </div>
+        </div>
+    </div>
+    
+    <footer>
+        <p>唱歌技巧修炼 · 成为更好的歌手</p>
+        <p>© 2026 | <a href="https://github.com/lxztry">访问开发者</a></p>
+    </footer>
+    
+    <script>
+        let isRecording = false;
+        let canvas, ctx;
+        let animationId;
+        
+        function toggleRecord() {
+            isRecording = !isRecording;
+            const btn = document.getElementById('recordBtn');
+            if (isRecording) {
+                btn.textContent = '⏹ 停止';
+                btn.classList.add('recording');
+                startVisualization();
+            } else {
+                btn.textContent = '🎤 开始跟唱';
+                btn.classList.remove('recording');
+                stopVisualization();
+            }
+        }
+        
+        function startVisualization() {
+            canvas = document.getElementById('pitchCanvas');
+            ctx = canvas.getContext('2d');
+            
+            canvas.width = canvas.offsetWidth;
+            canvas.height = canvas.offsetHeight;
+            
+            let phase = 0;
+            function draw() {
+                ctx.fillStyle = 'rgba(0,0,0,0.3)';
+                ctx.fillRect(0, 0, canvas.width, canvas.height);
+                
+                // Draw pitch line
+                ctx.strokeStyle = '#c084fc';
+                ctx.lineWidth = 3;
+                ctx.beginPath();
+                
+                for (let x = 0; x < canvas.width; x++) {
+                    const y = canvas.height/2 + Math.sin(x * 0.02 + phase) * (canvas.height/3);
+                    if (x === 0) ctx.moveTo(x, y);
+                    else ctx.lineTo(x, y);
+                }
+                ctx.stroke();
+                
+                phase += 0.05;
+                animationId = requestAnimationFrame(draw);
+            }
+            draw();
+        }
+        
+        function stopVisualization() {
+            cancelAnimationFrame(animationId);
+        }
+        
+        function playScale(name) {
+            alert('🎵 音阶练习: ' + name.toUpperCase() + '\n\n请跟着节拍唱:\nDo - Re - Mi - Fa - Sol - La - Si - Do\n\n(实际需要音频支持)');
+        }
+    </script>
+</body>
+</html>
